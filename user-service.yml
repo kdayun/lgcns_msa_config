@@ -1,0 +1,2 @@
+jwt:
+  secret: lgcns-inspire-spring-secret-key-for-jwt-12345678
