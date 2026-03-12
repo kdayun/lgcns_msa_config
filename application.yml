@@ -35,7 +35,7 @@
 #       timeout: 6000ms
 
 server:
-  port: 0 # 0이면 랜덤 포트, K8s에서는 보통 서비스로 접근
+  port: 8080 # 0이면 랜덤 포트, K8s에서는 보통 서비스로 접근
 
 spring:
   application:
