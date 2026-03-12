@@ -14,21 +14,21 @@ spring:
             # browser: http://localhost/xxx,sbop/user-service/users/signIn
             # inner : http://localhost/users/signIns
             - StripPrefix=1
-          uri: lb://user-service
+          uri: http://user-service
 
         - id: product-service
           predicates:
             - Path=/product-service/**
           filters:
             - StripPrefix=1
-          uri: lb://product-service
+          uri: http://product-service
 
         - id: order-service
           predicates:
             - Path=/order-service/**
           filters:
             - StripPrefix=1
-          uri: lb://order-service
+          uri: http://order-service
 
 jwt:
   secret: lgcns-inspire-spring-secret-key-for-jwt-12345678
