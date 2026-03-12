@@ -1,35 +1,75 @@
-server:
-  port: 0
+# server:
+#   port: 0
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+# eureka:
+#   client:
+#     serviceUrl:
+#       defaultZone: http://localhost:8761/eureka
+
+# spring:
+#   rabbitmq:
+#     host: localhost
+#     port: 5672
+#     username: guest
+#     password: guest
+
+#   datasource:
+#     driver-class-name: org.mariadb.jdbc.Driver
+#     url: jdbc:mariadb://localhost:3306/inspire
+#     username: root
+#     password: 1234
+
+#   jpa:
+#     database: mysql
+#     database-flatform: org.hibernate.dialect.MariaDBDialect
+#     hibernate:
+#       ddl-auto: create
+#     # 콘솔출력
+#     show-sql: true
+
+#   data:
+#     redis:
+#       host: localhost
+#       port: 6379
+#       password:
+#       timeout: 6000ms
+
+server:
+  port: 0 # 0이면 랜덤 포트, K8s에서는 보통 서비스로 접근
 
 spring:
+  application:
+    name: user-service
+
   rabbitmq:
-    host: localhost
+    host: rabbitmq # K8s ClusterIP 서비스 이름
     port: 5672
     username: guest
     password: guest
 
+  # datasource:
+  #   driver-class-name: org.mariadb.jdbc.Driver
+  #   url: jdbc:mariadb://mariadb-service:3306/inspire  # K8s MariaDB 서비스 이름
+  #   username: ${DB_ADMIN}  # Secret에 저장된 값
+  #   password: ${DB_PASSWORD}  # Secret에 저장된 값
+
+  spring:
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/inspire
-    username: root
-    password: 1234
+    url: jdbc:mariadb://${DB_HOST}:3306/inspire
+    username: ${DB_ADMIN}
+    password: ${DB_PASSWORD}
 
   jpa:
     database: mysql
-    database-flatform: org.hibernate.dialect.MariaDBDialect
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    generate-ddl: true
     hibernate:
       ddl-auto: create
-    # 콘솔출력
     show-sql: true
 
   data:
     redis:
-      host: localhost
+      host: redis-service # K8s Redis 서비스 이름
       port: 6379
-      password:
+      password: ${REDIS_PASSWORD} # Secret에 저장된 값, 없다면 비워도 됨
       timeout: 6000ms
